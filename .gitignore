@@ -1,10 +1,3 @@
-# ============ #
-# UME generated #
-# ============ #
-
-/game/logging/recording/*.mp3
-/game/logging/recording/*.wav
-/game/logging/editor/*.db
 
 # =============== #
 # Unity generated #
@@ -52,5 +45,3 @@
 /game/Icon?
 /game/ehthumbs.db
 /game/[Tt]humbs.db
-
-

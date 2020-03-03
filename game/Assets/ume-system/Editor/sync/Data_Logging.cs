@@ -28,18 +28,12 @@ static class DataLogging
     static string ChallengeTableColumns = "'ChallengeTable' (UserID, SessionID, LessonID, Event, ChallengeID, Login, StartTimestamp, EndTimestamp, Params)";
     static string ChallengeTableDefinition = "ChallengeTable (UserID text, SessionID text, LessonID text, Event string, ChallengeID text, Login text, StartTimestamp text, EndTimestamp text, Params text)";
     
-    //metadata
-
+    //metadata        
     static string TelemetryDbPath
     {
         get
         {
-            string envvar = System.Environment.GetEnvironmentVariable("UME_TELEMETRY_DB");
-            if (envvar == null || true){
-                envvar = Application.dataPath + "/../../logging/editor/default_unity.db";
-                System.Environment.SetEnvironmentVariable("UME_TELEMETRY_DB", envvar);
-            }
-            return envvar;
+            return System.Environment.GetEnvironmentVariable("UME_TELEMETRY_DB");
         }
 
         set
@@ -51,12 +45,7 @@ static class DataLogging
     {
         get
         {
-            string envvar = System.Environment.GetEnvironmentVariable("UME_RECORDING_DB");
-            if (envvar == null || true){
-                envvar =  Application.dataPath + "/../../logging/recording";
-                System.Environment.SetEnvironmentVariable("UME_RECORDING_DB", envvar);
-            }
-            return envvar;
+            return System.Environment.GetEnvironmentVariable("UME_RECORDING_DB");
         }
 
         set
@@ -94,7 +83,7 @@ static class DataLogging
     static private IDbConnection dbConnection;
     static private IDbCommand dbCommand;
     static private SqliteConnection conn;
-    //static private long lastDBwrite;
+    static private long lastDBwrite;
 
 
     public static bool debug = false;//true; //false
@@ -199,7 +188,7 @@ static class DataLogging
             }
         }
         DataLogging.total_nb_components = totalComps;
-        //DataLogging.lastDBwrite = System.DateTime.Now.Ticks;
+        DataLogging.lastDBwrite = System.DateTime.Now.Ticks;
     }
 
     //Returns initial and final values of the current property being modified
@@ -791,7 +780,7 @@ static class DataLogging
         /*if( (System.DateTime.Now.Ticks - DataLogging.lastDBwrite > 3000000000) ){
             DataLogging.WriteDb();
         }*/
-        //DataLogging.lastDBwrite = System.DateTime.Now.Ticks;
+        DataLogging.lastDBwrite = System.DateTime.Now.Ticks;
         conn.Close();
     }
 
